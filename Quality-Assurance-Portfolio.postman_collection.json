@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "1b135e72-0283-4cbc-991f-46ab72b0321c",
+		"name": "Quality Assurance Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30779797"
+	},
+	"item": [
+		{
+			"name": "Add user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set('userID', jsonData.id);\r",
+							"\r",
+							"pm.test('Status code should be 201',function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test('email should match',function(){\r",
+							"    pm.expect(jsonData.email).to.be.eq('APItest@gmail.com');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Nahuel\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"APItest@gmail.com\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code should be 200',function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code should be 200',function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('User status should be changed to inactive',function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.equal('inactive');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Nahuel\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"APItest@gmail.com\",\r\n    \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code should be 204',function(){\r",
+							"    pm.response.to.have.status(204)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "6ddfab560dc7097f8611564afb7a9d15bd5d7923e063e5e7ca73c67ab4190116",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userID",
+			"value": ""
+		}
+	]
+}
